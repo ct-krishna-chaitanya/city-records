@@ -1,0 +1,320 @@
+const masterData = {
+    state: ["state", "capital", "cm"],
+    city: ["name", "population", "pin"],
+    area: ["area", "ward"]
+}
+const errorMessages = {
+    state:{
+        state: "",
+        capital:"",
+        cm: "",
+    },
+    city: {
+        name:"",
+        population:"",
+        pin:"",
+    },
+    area:{
+        area:"",
+        ward:"",
+    },
+}
+const ValidationRules = {
+    state:{
+        state:{
+            rule:/^[a-z]+$/i,
+            message:"state should contains only alphabets"
+        },
+        capital:{
+            rule:/^[a-z]+$/i,
+            message:"capital should contains only alphabets"
+        },
+        cm:{
+            rule:/^[a-z]+$/i,
+            message:"CM should contains only alphabets"
+        },
+    },
+    city: {
+        name:{
+            rule:/^[a-z]+$/i,
+            message:"name should contains only alphabets"
+        },
+        population:{
+            rule:/^[0-9]+$/,
+            message:"Population should contains only alphabets"
+        },
+        pin:{
+            rule:/^[a-z]+$/i,
+            message:"pin should contains only alphabets"
+        },
+    },
+    area:{
+        area:{
+            rule:/^[a-z]+$/i,
+            message:"area should contains only alphabets"
+        },
+        ward:{
+            rule:/^[a-z]+$/i,
+            message:"Ward should contains only alphabets"
+        },
+    },
+}
+const masterValues = {
+    state: [
+        {
+            state: "Andhra Pradesh",
+            capital: "Amaravathi",
+            cm: "Jagan"
+        }
+    ],
+    city: [
+        {
+            name: "Rajahmundry",
+            population: "5000000",
+            pin: "533102"
+        }
+    ],
+    area: [
+        {
+            area: "GO Colony",
+            ward: "25",
+        },
+    ]
+}
+
+// Form Validation
+function validate(category, params){
+    console.log(category,params,'xoxo')
+    return true
+}
+
+// Render content
+function rerender_() {
+    var table_list = Object.keys(masterData);
+    // console.log("starting f the render")
+    //var table_list = ['area']
+    for (k = 0; k < table_list.length; k++) {
+        var table = document.getElementById(table_list[k] + "_table")
+        table.innerHTML = ""
+        var header_row = document.createElement("tr");
+        masterData[table_list[k]].forEach(element => {
+            var h_col = document.createElement("th");
+            h_col.innerHTML = element
+            header_row.appendChild(h_col)
+        });
+        var last_col = document.createElement("th")
+        last_col.innerHTML = "Action";
+        header_row.appendChild(last_col);
+        table.appendChild(header_row);
+        // console.log(masterValues[table_list[k]], 'oooooooo')
+        for (i = 0; i < masterValues[table_list[k]].length; i++) {
+            var row = document.createElement("tr")
+            // console.log(masterData[table_list[k]], 'zzzzz')
+            for (j = 0; j < masterData[table_list[k]].length; j++) {
+                var col = document.createElement("td");
+
+                // console.log(masterValues[table_list[k]][i][masterData[table_list[k]][j]], 'xxx')
+                //col.innerHTML = area_data[i][masterData.table_list[i][j]]
+                col.innerHTML = masterValues[table_list[k]][i][masterData[table_list[k]][j]];
+                row.appendChild(col)
+            }
+            //window.alert("this is ok")
+            var lc = document.createElement("td")
+            // console.log(table_list[k],"this iis the row man")
+            lc.id = table_list[k] + "_" + i;
+            var b1 = document.createElement("button")
+            b1.innerHTML = `<i class="bi bi-pen-fill" style = "color:white"></i>`
+            b1.style.background = "#0A6847"
+            b1.addEventListener("click", editItem)
+            var b2 = document.createElement("button")
+            b2.innerHTML = `<i class="bi bi-trash3-fill" style="color:white"></i>`
+            b2.className = "delete-btn"
+            b2.addEventListener("click", deleteItem)
+            lc.appendChild(b1)
+            lc.appendChild(b2)
+            row.appendChild(lc);
+            table.appendChild(row)
+            //table.appendChild(row)
+            //console.log("sdf")
+        }
+    }
+
+}
+
+// Add record
+const handleSubmit = (e) => {
+    e.preventDefault();
+    var current = e.target.id
+    current = current.replace("_btn", "")
+    const fields = masterData[current];
+    // console.log(fields,"these are the fields")
+    const values = {};
+    for (let i = 0; i < fields.length; i++) {
+        const field = fields[i];
+
+        // console.log(field+"_id")
+        // console.log(`${field}_id`)
+        const value = document.getElementById(field + "_id").value;
+        // console.log("xnxx",value)
+        values[field] = value;
+    }
+    // console.log(values)
+    masterValues[current].push(values)
+    // console.log(masterValues[current])
+    rerender_();
+    document.getElementById('overlay').style.display = "none";
+}
+// Event listner
+function handleChange(e){
+    var category =  e.target.parentNode.className
+    category = category.split(" ")[1].split("_")[0]
+    var field = e.target.id
+    var field = field.split("_")[0]
+    console.log(field,category,'zoom')
+    var val = e.target.value
+    const pattern = ValidationRules[category][field].rule
+    console.log(pattern)
+    const is_valid = val.match(pattern)
+    console.log(is_valid,"valitating the input")
+    if(!is_valid){
+        errorMessages[category][field] =  ValidationRules[category][field].message
+    }else{
+        errorMessages[category][field] = ""
+    }
+    console.log(errorMessages)
+}
+function renderErrors(){
+    
+}
+//open
+const openForm = (e) => {
+    const current_form = e.target.id.replace("_btn", "")
+    document.getElementById('overlay').style.display = "block";
+    document.getElementById("form_heading").innerHTML = `Add ${current_form}`
+    const form = document.getElementById("add_form");
+    document.querySelectorAll(".input_div").forEach(ele => {
+        form.removeChild(ele)
+    })
+    //form.removeChild(document.getElementById("submit_div"))
+    for (i = 0; i < masterData[current_form].length; i++) {
+        var div = document.createElement("div")
+        div.className = `input_div ${current_form}_input`
+        var label_1 = document.createElement("label")
+        label_1.innerHTML = masterData[current_form][i]
+        label_1.style.margin = "5px 0 5px 0"
+        var input = document.createElement("input")
+        input.id = masterData[current_form][i] + "_id"
+        input.type = "text"
+        input.addEventListener("input",handleChange)
+        var label_2 = document.createElement("label")
+        label_2.id = current_form + "_error";
+        label_2.style.float = "right";
+        label_2.style.color = "red";
+        div.appendChild(label_1)
+        div.appendChild(input)
+        div.appendChild(label_2)
+        form.appendChild(div)
+    }
+    // Submit button
+    var div_ = document.createElement("div");
+    div_.className = "input_div"
+
+    var btn = document.createElement("button")
+    btn.id = current_form + "_btn"
+    btn.innerHTML = "Submit"
+    btn.className = "btn-1 form_submit_btn"
+    btn.addEventListener("click", handleSubmit)
+    div_.appendChild(btn)
+    form.appendChild(div_)
+
+}
+
+document.querySelectorAll(".open-form").forEach(element => {
+    element.addEventListener("click", openForm)
+})
+const closeForm = () => {
+    document.getElementById('overlay').style.display = "none";
+}
+document.getElementById("close_modal").addEventListener("click", closeForm)
+
+
+// Delete Items
+const deleteItem = (e) => {
+    var bid = e.target.parentNode.id || e.target.parentNode.parentNode.id;
+    const category = bid.split("_")[0]
+    const id = bid.split("_")[1]
+    masterValues[category].splice(id, 1)
+
+    // console.log("Deleting this item",category)
+    rerender_()
+}
+
+// Handle save (Editing a value)
+const handleSave = (e) => {
+    e.preventDefault();
+    var current = e.target.id
+    current = current.replace("_btn", "")
+    const category = current.split("_")[0]
+    const id = current.split("_")[1]
+    console.log(category,id,'boom')
+    const fields = masterData[category]
+    const params = {}
+    for (i=0; i<fields.length; i++){
+        params[fields[i]]=document.getElementById(fields[i]+"_id").value
+        console.log(masterValues[category][id][fields[i]],"zooomer",fields[i]+"_id")
+        masterValues[category][id][fields[i]] = document.getElementById(fields[i]+"_id").value
+    }
+    validate(category,params)
+    rerender_();
+    document.getElementById('overlay').style.display = "none";
+}
+
+// Edit Item
+const editItem = (e) => {
+    var bid = e.target.parentNode.id || e.target.parentNode.parentNode.id;
+    const category = bid.split("_")[0]
+    const id = bid.split("_")[1]
+    console.log(category)
+    const currentValues = masterValues[category][id]
+    console.log(currentValues)
+    document.getElementById('overlay').style.display = "block";
+    document.getElementById("form_heading").innerHTML = `Edit ${category}`
+    const form = document.getElementById("add_form");
+    document.querySelectorAll(".input_div").forEach(ele => {
+        form.removeChild(ele)
+    })
+
+    for (i = 0; i < masterData[category].length; i++) {
+        var div = document.createElement("div")
+        div.className = "input_div"
+        var label_1 = document.createElement("label")
+        label_1.innerHTML = masterData[category][i]
+        label_1.style.margin = "5px 0 5px 0"
+        var input = document.createElement("input")
+        input.id = masterData[category][i] + "_id"
+        input.type = "text"
+        //console.log(currentValues[masterData[category][i]],"Booooooooooom",category)
+        input.value = currentValues[masterData[category][i]]
+        var label_2 = document.createElement("label")
+        label_2.id = masterData[category][i] + "_error";
+        label_2.style.float = "right";
+        label_2.style.color = "red";
+        div.appendChild(label_1)
+        div.appendChild(input)
+        div.appendChild(label_2)
+        form.appendChild(div)
+    }
+    // Submit button
+    var div_ = document.createElement("div");
+    div_.className = "input_div"
+
+    var btn = document.createElement("button")
+    btn.id = category+"_"+id+ "_btn"
+    btn.innerHTML = "Submit"
+    btn.className = "btn-1 form_submit_btn"
+    btn.addEventListener("click", handleSave)
+    div_.appendChild(btn)
+    form.appendChild(div_)
+}
+
+rerender_();

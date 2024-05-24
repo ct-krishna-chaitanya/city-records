@@ -1,0 +1,131 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #31363F
+}
+
+.container {
+    max-width: 95%;
+    margin: 0 auto;
+}
+
+table,
+td,
+th {
+    border: 1px solid;
+    font-size: small;
+    font-weight: 500;
+    color: rgb(59, 59, 59);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    /* outline: none;
+    border: none; */
+    
+    /* border: 1px solid gray; */
+}
+.table > tr:nth-child(odd){
+    background-color: rgb(221, 221, 221);
+}
+
+td,th {
+    text-align: center;
+    padding: 5px;
+    /* border: none;
+    border-bottom: 1px solid #ddd; */
+}
+td > button{
+    margin: 0 4px;
+    padding: 7px 10px 7px 10px;
+    border: none;
+    background-color: #151515;
+    border-radius: 5px;
+    font-size: small;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+th {
+    color: white;
+    background-color: #151515;
+    border: 1px solid #151515;
+}
+
+.btn-1 {
+    background-color: #151515;
+    color: white;
+    border: none;
+    padding: 10px 10px 10px 10px;
+    margin: 10px 0 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 200ms;
+}
+
+.overlay{
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 100vh;
+    width: 100%;
+    display: none;
+}
+.add-form {
+    border: 1px solid gray;
+    padding: 10px;
+    width: 300px;
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgb(136, 136, 136);
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.add-form>div>input {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #6d6d6d;
+    height: 3em;
+    font-size: .8em;
+    padding: 10px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+.add-form>div {
+    margin: 10px 0 10px 0;
+}
+
+.add-form>div>label {
+    margin: 5px 0 5px 0;
+    font-size: x-small;
+    font-weight: bold;
+}
+.delete-btn{
+    background-color: rgb(245, 44, 29);
+}
+button:hover{
+    opacity: 90%;
+    transition: all 200ms;
+    transform: scale(103%);
+}
+
+/* Updates */
+.flex{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px;
+}
+.col{
+    min-height: 100vh;
+    /* border: 1px solid rgb(151, 151, 151); */
+}
