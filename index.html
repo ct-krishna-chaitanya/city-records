@@ -14,20 +14,19 @@
     <!-- Add State Form Starts  -->
     <div class="overlay add-state-form" id="add_state_form">
         <div class="add-form">
-            <i id="close_state_modal" class="bi bi-x-circle close_modal" 
-                style="position: absolute; top: 10px; right: 10px;font-size: large;cursor: pointer;;"></i>
+            <i id="close_state_modal" class="bi bi-x-circle close_modal"></i>
             <h2 style="text-align: center;">Add a State</h2>
-            <div class="name-input">
+            <div class="add_form_input_">
                 <label for="">State Name</label>
                 <input type="text" class="add_state_input" id="state_input" name="name">
                 <label for="" id="state_error" style="float: right; color: red;"></label>
             </div>
-            <div>
+            <div class="add_form_input_">
                 <label for="">Capital</label>
                 <input type="text" class="add_state_input" id="capital_input" name="population">
                 <label for="" id="capital_error" style="float: right; color: red;"></label>
             </div>
-            <div>
+            <div class="add_form_input_">
                 <label for="">CM</label>
                 <input type="text" class="add_state_input" id="cm_input" name="pin">
                 <label for="" id="cm_error" style="float: right; color: red;"></label>
@@ -38,26 +37,26 @@
     <!-- Add State form Ends -->
 
     <div class="overlay add-city-form" id="overlay">
-        <div class="add-form">
-            <i id="close_modal" class="bi bi-x-circle close_modal"
-                style="position: absolute; top: 10px; right: 10px;font-size: large;cursor: pointer;;"></i>
-            <h2 style="text-align: center;">Add a City</h2>
-            <div class="name-input">
+        <div class="add-form"  id="add_form">
+            <i id="close_modal" class="bi bi-x-circle close_modal"></i>
+            <h2 style="text-align: center;" id="form_heading">Add a City</h2>
+            
+            <div class="input_div">
                 <label for="city">City Name</label>
                 <input type="text" class="add_form_input" id="city" name="name">
                 <label for="" id="city_error" style="float: right; color: red;"></label>
             </div>
-            <div>
+            <div class="input_div">
                 <label for="city">Population</label>
                 <input type="text" class="add_form_input" id="population" name="population">
                 <label for="" id="population_error" style="float: right; color: red;"></label>
             </div>
-            <div>
+            <div class="input_div">
                 <label for="city">Pin Code</label>
                 <input type="text" class="add_form_input" id="pin" name="pin">
                 <label for="" id="pin_error" style="float: right; color: red;"></label>
             </div>
-            <div><button type="submit" id="add_city" class="btn-1" style="width: 100%;">add city</button></div>
+            <div  class="input_div"><button type="submit" id="submit_div" class="btn-1 form_submit_btn">add city</button></div>
         </div>
     </div>
 
@@ -65,7 +64,7 @@
         <div class="add-form">
             <i id="close_edit_modal" class="bi bi-x-circle"
                 style="position: absolute; top: 10px; right: 10px;font-size: large;cursor: pointer;;"></i>
-            <h2 style="text-align: center;">Edit City</h2>
+            <h2 style="text-align: center;" >Edit City</h2>
             <div>
                 <label for="city">City Name</label>
                 <input type="text" id="edit_city" name="City">
@@ -78,7 +77,7 @@
                 <label for="city">Pin Code</label>
                 <input type="text" id="edit_pin" name="pin">
             </div>
-            <div><button type="submit" id="edit_city_btn" class="btn-1" style="width: 100%;">Save Changes</button></div>
+            <div class="submit_div" ><button type="submit" id="edit_city_btn" class="btn-1" style="width: 100%;">Save Changes</button></div>
         </div>
     </div>
 
@@ -97,7 +96,7 @@
     <div class="flex container" style="margin-top: 30px;">
         <!-- State Column -->
         <div class="col">
-            <button id="add_state_btn" class="btn-1">Add State</button>
+            <button id="state_btn" class="btn-1 open-form">Add State</button>
             <table class="state-table table" id="state_table">
                 <tr>
                     <th>State</th>
@@ -109,7 +108,7 @@
         </div>
         <!-- City Column -->
         <div class="col">
-            <button id="add_btn" class="btn-1">Add City</button>
+            <button id="city_btn" class="btn-1 open-form">Add City</button>
             <table class="table" id="city_table">
                 <tr>
                     <th>City</th>
@@ -121,7 +120,7 @@
         </div>
         <!-- Area Column -->
         <div class="col">
-            <button id="add_btn" class="btn-1">Add Area</button>
+            <button id="area_btn" class="btn-1 open-form">Add Area</button>
             <table class="table" id="area_table">
                 <tr>
                     <th>Area</th>
